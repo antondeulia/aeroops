@@ -1,0 +1,8 @@
+string mission_id
+float64[] latitudes
+float64[] longitudes
+float64[] altitudes_m
+---
+bool success
+string message
+uint32 waypoint_count
