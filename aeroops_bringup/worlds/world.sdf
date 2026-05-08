@@ -1,0 +1,511 @@
+<sdf version='1.10'>
+    <world name='empty'>
+        <physics name='1ms' type='ignored'>
+            <max_step_size>0.001</max_step_size>
+            <real_time_factor>1</real_time_factor>
+            <real_time_update_rate>1000</real_time_update_rate>
+        </physics>
+        <plugin name='gz::sim::systems::Physics' filename='gz-sim-physics-system' />
+        <plugin name='gz::sim::systems::UserCommands' filename='gz-sim-user-commands-system' />
+        <plugin name='gz::sim::systems::SceneBroadcaster' filename='gz-sim-scene-broadcaster-system' />
+        <plugin name='gz::sim::systems::Contact' filename='gz-sim-contact-system' />
+        <gravity>0 0 -9.8000000000000007</gravity>
+        <magnetic_field>5.5644999999999998e-06 2.2875799999999999e-05 -4.2388400000000002e-05</magnetic_field>
+        <atmosphere type='adiabatic' />
+        <scene>
+            <ambient>0.400000006 0.400000006 0.400000006 1</ambient>
+            <background>0.699999988 0.699999988 0.699999988 1</background>
+            <shadows>true</shadows>
+        </scene>
+        <model name='ground_plane'>
+            <static>true</static>
+            <link name='link'>
+                <collision name='collision'>
+                    <geometry>
+                        <plane>
+                            <normal>0 0 1</normal>
+                            <size>100 100</size>
+                        </plane>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode />
+                        </friction>
+                        <bounce />
+                        <contact />
+                    </surface>
+                </collision>
+                <visual name='visual'>
+                    <geometry>
+                        <plane>
+                            <normal>0 0 1</normal>
+                            <size>100 100</size>
+                        </plane>
+                    </geometry>
+                    <material>
+                        <ambient>0.800000012 0.800000012 0.800000012 1</ambient>
+                        <diffuse>0.800000012 0.800000012 0.800000012 1</diffuse>
+                        <specular>0.800000012 0.800000012 0.800000012 1</specular>
+                    </material>
+                </visual>
+                <pose>0 0 0 0 0 0</pose>
+                <inertial>
+                    <pose>0 0 0 0 0 0</pose>
+                    <mass>1</mass>
+                    <inertia>
+                        <ixx>1</ixx>
+                        <ixy>0</ixy>
+                        <ixz>0</ixz>
+                        <iyy>1</iyy>
+                        <iyz>0</iyz>
+                        <izz>1</izz>
+                    </inertia>
+                </inertial>
+                <enable_wind>false</enable_wind>
+            </link>
+            <pose>0 0 0 0 0 0</pose>
+            <self_collide>false</self_collide>
+        </model>
+        <model name='aeroops'>
+            <link name='base_link'>
+                <inertial>
+                    <pose>0.0065217391304347883 -9.4278449781348187e-19 0.0077989130434782559 0 0 0</pose>
+                    <mass>1.840000000000001</mass>
+                    <inertia>
+                        <ixx>0.019523488931159419</ixx>
+                        <ixy>-1.13134139737618e-20</ixy>
+                        <ixz>9.3586956521739183e-05</ixz>
+                        <iyy>0.03188483222826087</iyy>
+                        <iyz>-1.352895754362346e-20</iyz>
+                        <izz>0.048265009963768098</izz>
+                    </inertia>
+                </inertial>
+                <collision name='base_link_collision'>
+                    <pose>0 0 0 0 0 0</pose>
+                    <geometry>
+                        <box>
+                            <size>0.32000000000000001 0.22 0.080000000000000002</size>
+                        </box>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode />
+                        </friction>
+                        <bounce />
+                        <contact />
+                    </surface>
+                </collision>
+                <collision name='base_link_fixed_joint_lump__camera_link_collision_1'>
+                    <pose>0.23999999999999999 0 0 0 0 0</pose>
+                    <geometry>
+                        <box>
+                            <size>0.055 0.040000000000000001 0.035000000000000003</size>
+                        </box>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode />
+                        </friction>
+                        <bounce />
+                        <contact />
+                    </surface>
+                </collision>
+                <collision name='base_link_fixed_joint_lump__front_left_arm_link_collision_2'>
+                    <pose>0.14000000000000001 0.14000000000000001 0 0 0 0.78539816339744839</pose>
+                    <geometry>
+                        <box>
+                            <size>0.39597979746446671 0.035000000000000003 0.035000000000000003</size>
+                        </box>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode />
+                        </friction>
+                        <bounce />
+                        <contact />
+                    </surface>
+                </collision>
+                <collision name='base_link_fixed_joint_lump__front_left_rotor_link_collision_3'>
+                    <pose>0.28000000000000003 0.28000000000000003 0.055 0 0 0</pose>
+                    <geometry>
+                        <cylinder>
+                            <length>0.017999999999999999</length>
+                            <radius>0.11</radius>
+                        </cylinder>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode />
+                        </friction>
+                        <bounce />
+                        <contact />
+                    </surface>
+                </collision>
+                <collision name='base_link_fixed_joint_lump__front_right_arm_link_collision_4'>
+                    <pose>0.14000000000000001 -0.14000000000000001 0 0 0 -0.78539816339744839</pose>
+                    <geometry>
+                        <box>
+                            <size>0.39597979746446671 0.035000000000000003 0.035000000000000003</size>
+                        </box>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode />
+                        </friction>
+                        <bounce />
+                        <contact />
+                    </surface>
+                </collision>
+                <collision name='base_link_fixed_joint_lump__front_right_rotor_link_collision_5'>
+                    <pose>0.28000000000000003 -0.28000000000000003 0.055 0 0 0</pose>
+                    <geometry>
+                        <cylinder>
+                            <length>0.017999999999999999</length>
+                            <radius>0.11</radius>
+                        </cylinder>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode />
+                        </friction>
+                        <bounce />
+                        <contact />
+                    </surface>
+                </collision>
+                <collision name='base_link_fixed_joint_lump__imu_link_collision_6'>
+                    <pose>0 0 0.065000000000000002 0 0 0</pose>
+                    <geometry>
+                        <box>
+                            <size>0.059999999999999998 0.040000000000000001 0.014999999999999999</size>
+                        </box>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode />
+                        </friction>
+                        <bounce />
+                        <contact />
+                    </surface>
+                </collision>
+                <collision name='base_link_fixed_joint_lump__lidar_link_collision_7'>
+                    <pose>0 0 0.095000000000000001 0 0 0</pose>
+                    <geometry>
+                        <cylinder>
+                            <length>0.035000000000000003</length>
+                            <radius>0.044999999999999998</radius>
+                        </cylinder>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode />
+                        </friction>
+                        <bounce />
+                        <contact />
+                    </surface>
+                </collision>
+                <collision name='base_link_fixed_joint_lump__rear_left_arm_link_collision_8'>
+                    <pose>-0.14000000000000001 0.14000000000000001 0 0 0 2.3561944901923448</pose>
+                    <geometry>
+                        <box>
+                            <size>0.39597979746446671 0.035000000000000003 0.035000000000000003</size>
+                        </box>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode />
+                        </friction>
+                        <bounce />
+                        <contact />
+                    </surface>
+                </collision>
+                <collision name='base_link_fixed_joint_lump__rear_left_rotor_link_collision_9'>
+                    <pose>-0.28000000000000003 0.28000000000000003 0.055 0 0 0</pose>
+                    <geometry>
+                        <cylinder>
+                            <length>0.017999999999999999</length>
+                            <radius>0.11</radius>
+                        </cylinder>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode />
+                        </friction>
+                        <bounce />
+                        <contact />
+                    </surface>
+                </collision>
+                <collision name='base_link_fixed_joint_lump__rear_right_arm_link_collision_10'>
+                    <pose>-0.14000000000000001 -0.14000000000000001 0 0 0 -2.3561944901923448</pose>
+                    <geometry>
+                        <box>
+                            <size>0.39597979746446671 0.035000000000000003 0.035000000000000003</size>
+                        </box>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode />
+                        </friction>
+                        <bounce />
+                        <contact />
+                    </surface>
+                </collision>
+                <collision name='base_link_fixed_joint_lump__rear_right_rotor_link_collision_11'>
+                    <pose>-0.28000000000000003 -0.28000000000000003 0.055 0 0 0</pose>
+                    <geometry>
+                        <cylinder>
+                            <length>0.017999999999999999</length>
+                            <radius>0.11</radius>
+                        </cylinder>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode />
+                        </friction>
+                        <bounce />
+                        <contact />
+                    </surface>
+                </collision>
+                <visual name='base_link_visual'>
+                    <pose>0 0 0 0 0 0</pose>
+                    <geometry>
+                        <box>
+                            <size>0.32000000000000001 0.22 0.080000000000000002</size>
+                        </box>
+                    </geometry>
+                    <material>
+                        <diffuse>0.0625 0.0625 0.0625 1</diffuse>
+                        <ambient>0.0625 0.0625 0.0625 1</ambient>
+                    </material>
+                </visual>
+                <visual name='base_link_fixed_joint_lump__camera_link_visual_1'>
+                    <pose>0.23999999999999999 0 0 0 0 0</pose>
+                    <geometry>
+                        <box>
+                            <size>0.055 0.040000000000000001 0.035000000000000003</size>
+                        </box>
+                    </geometry>
+                    <material>
+                        <diffuse>0.0250000004 0.0250000004 0.0250000004 1</diffuse>
+                        <ambient>0.0250000004 0.0250000004 0.0250000004 1</ambient>
+                    </material>
+                </visual>
+                <visual name='base_link_fixed_joint_lump__front_left_arm_link_visual_2'>
+                    <pose>0.14000000000000001 0.14000000000000001 0 0 0 0.78539816339744839</pose>
+                    <geometry>
+                        <box>
+                            <size>0.39597979746446671 0.035000000000000003 0.035000000000000003</size>
+                        </box>
+                    </geometry>
+                    <material>
+                        <diffuse>0.4375 0.4375 0.4375 1</diffuse>
+                        <ambient>0.4375 0.4375 0.4375 1</ambient>
+                    </material>
+                </visual>
+                <visual name='base_link_fixed_joint_lump__front_left_rotor_link_visual_3'>
+                    <pose>0.28000000000000003 0.28000000000000003 0.055 0 0 0</pose>
+                    <geometry>
+                        <cylinder>
+                            <length>0.017999999999999999</length>
+                            <radius>0.11</radius>
+                        </cylinder>
+                    </geometry>
+                    <material>
+                        <diffuse>0.0625 0.0625 0.0625 1</diffuse>
+                        <ambient>0.0625 0.0625 0.0625 1</ambient>
+                    </material>
+                </visual>
+                <visual name='base_link_fixed_joint_lump__front_right_arm_link_visual_4'>
+                    <pose>0.14000000000000001 -0.14000000000000001 0 0 0 -0.78539816339744839</pose>
+                    <geometry>
+                        <box>
+                            <size>0.39597979746446671 0.035000000000000003 0.035000000000000003</size>
+                        </box>
+                    </geometry>
+                    <material>
+                        <diffuse>0.4375 0.4375 0.4375 1</diffuse>
+                        <ambient>0.4375 0.4375 0.4375 1</ambient>
+                    </material>
+                </visual>
+                <visual name='base_link_fixed_joint_lump__front_right_rotor_link_visual_5'>
+                    <pose>0.28000000000000003 -0.28000000000000003 0.055 0 0 0</pose>
+                    <geometry>
+                        <cylinder>
+                            <length>0.017999999999999999</length>
+                            <radius>0.11</radius>
+                        </cylinder>
+                    </geometry>
+                    <material>
+                        <diffuse>0.0625 0.0625 0.0625 1</diffuse>
+                        <ambient>0.0625 0.0625 0.0625 1</ambient>
+                    </material>
+                </visual>
+                <visual name='base_link_fixed_joint_lump__imu_link_visual_6'>
+                    <pose>0 0 0.065000000000000002 0 0 0</pose>
+                    <geometry>
+                        <box>
+                            <size>0.059999999999999998 0.040000000000000001 0.014999999999999999</size>
+                        </box>
+                    </geometry>
+                    <material>
+                        <diffuse>0 0.3125 1 1</diffuse>
+                        <ambient>0 0.3125 1 1</ambient>
+                    </material>
+                </visual>
+                <visual name='base_link_fixed_joint_lump__lidar_link_visual_7'>
+                    <pose>0 0 0.095000000000000001 0 0 0</pose>
+                    <geometry>
+                        <cylinder>
+                            <length>0.035000000000000003</length>
+                            <radius>0.044999999999999998</radius>
+                        </cylinder>
+                    </geometry>
+                    <material>
+                        <diffuse>0.0250000004 0.0250000004 0.0250000004 1</diffuse>
+                        <ambient>0.0250000004 0.0250000004 0.0250000004 1</ambient>
+                    </material>
+                </visual>
+                <visual name='base_link_fixed_joint_lump__rear_left_arm_link_visual_8'>
+                    <pose>-0.14000000000000001 0.14000000000000001 0 0 0 2.3561944901923448</pose>
+                    <geometry>
+                        <box>
+                            <size>0.39597979746446671 0.035000000000000003 0.035000000000000003</size>
+                        </box>
+                    </geometry>
+                    <material>
+                        <diffuse>0.4375 0.4375 0.4375 1</diffuse>
+                        <ambient>0.4375 0.4375 0.4375 1</ambient>
+                    </material>
+                </visual>
+                <visual name='base_link_fixed_joint_lump__rear_left_rotor_link_visual_9'>
+                    <pose>-0.28000000000000003 0.28000000000000003 0.055 0 0 0</pose>
+                    <geometry>
+                        <cylinder>
+                            <length>0.017999999999999999</length>
+                            <radius>0.11</radius>
+                        </cylinder>
+                    </geometry>
+                    <material>
+                        <diffuse>0.0625 0.0625 0.0625 1</diffuse>
+                        <ambient>0.0625 0.0625 0.0625 1</ambient>
+                    </material>
+                </visual>
+                <visual name='base_link_fixed_joint_lump__rear_right_arm_link_visual_10'>
+                    <pose>-0.14000000000000001 -0.14000000000000001 0 0 0 -2.3561944901923448</pose>
+                    <geometry>
+                        <box>
+                            <size>0.39597979746446671 0.035000000000000003 0.035000000000000003</size>
+                        </box>
+                    </geometry>
+                    <material>
+                        <diffuse>0.4375 0.4375 0.4375 1</diffuse>
+                        <ambient>0.4375 0.4375 0.4375 1</ambient>
+                    </material>
+                </visual>
+                <visual name='base_link_fixed_joint_lump__rear_right_rotor_link_visual_11'>
+                    <pose>-0.28000000000000003 -0.28000000000000003 0.055 0 0 0</pose>
+                    <geometry>
+                        <cylinder>
+                            <length>0.017999999999999999</length>
+                            <radius>0.11</radius>
+                        </cylinder>
+                    </geometry>
+                    <material>
+                        <diffuse>0.0625 0.0625 0.0625 1</diffuse>
+                        <ambient>0.0625 0.0625 0.0625 1</ambient>
+                    </material>
+                </visual>
+                <pose>0 0 0 0 0 0</pose>
+                <enable_wind>false</enable_wind>
+            </link>
+            <frame name='camera_joint' attached_to='base_link'>
+                <pose>0.23999999999999999 0 0 0 0 0</pose>
+            </frame>
+            <frame name='camera_link' attached_to='camera_joint'>
+                <pose>0 0 0 0 0 0</pose>
+            </frame>
+            <frame name='front_left_arm_joint' attached_to='base_link'>
+                <pose>0 0 0 0 0 0</pose>
+            </frame>
+            <frame name='front_left_arm_link' attached_to='front_left_arm_joint'>
+                <pose>0 0 0 0 0 0</pose>
+            </frame>
+            <frame name='front_left_rotor_joint' attached_to='base_link'>
+                <pose>0.28000000000000003 0.28000000000000003 0.029999999999999999 0 0 0</pose>
+            </frame>
+            <frame name='front_left_rotor_link' attached_to='front_left_rotor_joint'>
+                <pose>0 0 0 0 0 0</pose>
+            </frame>
+            <frame name='front_right_arm_joint' attached_to='base_link'>
+                <pose>0 0 0 0 0 0</pose>
+            </frame>
+            <frame name='front_right_arm_link' attached_to='front_right_arm_joint'>
+                <pose>0 0 0 0 0 0</pose>
+            </frame>
+            <frame name='front_right_rotor_joint' attached_to='base_link'>
+                <pose>0.28000000000000003 -0.28000000000000003 0.029999999999999999 0 0 0</pose>
+            </frame>
+            <frame name='front_right_rotor_link' attached_to='front_right_rotor_joint'>
+                <pose>0 0 0 0 0 0</pose>
+            </frame>
+            <frame name='imu_joint' attached_to='base_link'>
+                <pose>0 0 0.065000000000000002 0 0 0</pose>
+            </frame>
+            <frame name='imu_link' attached_to='imu_joint'>
+                <pose>0 0 0 0 0 0</pose>
+            </frame>
+            <frame name='lidar_joint' attached_to='base_link'>
+                <pose>0 0 0.095000000000000001 0 0 0</pose>
+            </frame>
+            <frame name='lidar_link' attached_to='lidar_joint'>
+                <pose>0 0 0 0 0 0</pose>
+            </frame>
+            <frame name='rear_left_arm_joint' attached_to='base_link'>
+                <pose>0 0 0 0 0 0</pose>
+            </frame>
+            <frame name='rear_left_arm_link' attached_to='rear_left_arm_joint'>
+                <pose>0 0 0 0 0 0</pose>
+            </frame>
+            <frame name='rear_left_rotor_joint' attached_to='base_link'>
+                <pose>-0.28000000000000003 0.28000000000000003 0.029999999999999999 0 0 0</pose>
+            </frame>
+            <frame name='rear_left_rotor_link' attached_to='rear_left_rotor_joint'>
+                <pose>0 0 0 0 0 0</pose>
+            </frame>
+            <frame name='rear_right_arm_joint' attached_to='base_link'>
+                <pose>0 0 0 0 0 0</pose>
+            </frame>
+            <frame name='rear_right_arm_link' attached_to='rear_right_arm_joint'>
+                <pose>0 0 0 0 0 0</pose>
+            </frame>
+            <frame name='rear_right_rotor_joint' attached_to='base_link'>
+                <pose>-0.28000000000000003 -0.28000000000000003 0.029999999999999999 0 0 0</pose>
+            </frame>
+            <frame name='rear_right_rotor_link' attached_to='rear_right_rotor_joint'>
+                <pose>0 0 0 0 0 0</pose>
+            </frame>
+            <pose>1.6791865650781831e-11 5.7672235234912303e-20 0.039999164570337899
+                -8.9329377830913928e-20 4.2986776877457166e-10 1.5463864179761134e-19</pose>
+            <static>false</static>
+            <self_collide>false</self_collide>
+        </model>
+        <light name='sun' type='directional'>
+            <pose>0 0 10 0 0 0</pose>
+            <cast_shadows>true</cast_shadows>
+            <intensity>1</intensity>
+            <direction>-0.5 0.10000000000000001 -0.90000000000000002</direction>
+            <diffuse>0.800000012 0.800000012 0.800000012 1</diffuse>
+            <specular>0.200000003 0.200000003 0.200000003 1</specular>
+            <attenuation>
+                <range>1000</range>
+                <linear>0.0099999997764825821</linear>
+                <constant>0.89999997615814209</constant>
+                <quadratic>0.0010000000474974513</quadratic>
+            </attenuation>
+            <spot>
+                <inner_angle>0</inner_angle>
+                <outer_angle>0</outer_angle>
+                <falloff>0</falloff>
+            </spot>
+        </light>
+    </world>
+</sdf>
