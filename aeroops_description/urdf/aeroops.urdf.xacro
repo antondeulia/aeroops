@@ -1,33 +1,32 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="uav">
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="aeroops">
+
+    <xacro:include filename="$(find aeroops_description)/urdf/materials.xacro" />
+    <xacro:include filename="$(find aeroops_description)/urdf/inertial_macros.xacro" />
+    <xacro:include filename="$(find aeroops_description)/urdf/rotors.xacro" />
+    <xacro:include filename="$(find aeroops_description)/urdf/sensors.xacro" />
+
     <link name="base_link">
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <box size="0.45 0.45 0.08" />
+                <box size="0.32 0.22 0.08" />
             </geometry>
-            <material name="dark_gray">
-                <color rgba="0.1 0.1 0.1 1.0" />
-            </material>
+            <material name="aeroops_dark" />
         </visual>
 
         <collision>
-            <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <box size="0.45 0.45 0.08" />
+                <box size="0.32 0.22 0.08" />
             </geometry>
         </collision>
 
-        <inertial>
-            <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="1.5" />
-            <inertia
-                ixx="0.03"
-                ixy="0.0"
-                ixz="0.0"
-                iyy="0.03"
-                iyz="0.0"
-                izz="0.05" />
-        </inertial>
+        <xacro:box_inertial mass="1.2" x="0.32" y="0.22" z="0.08" />
     </link>
+
+    <xacro:rotor name="front_left" x="0.28" y="0.28" direction="ccw" />
+    <xacro:rotor name="front_right" x="0.28" y="-0.28" direction="cw" />
+    <xacro:rotor name="rear_left" x="-0.28" y="0.28" direction="cw" />
+    <xacro:rotor name="rear_right" x="-0.28" y="-0.28" direction="ccw" />
+
 </robot>
