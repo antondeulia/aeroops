@@ -1,12 +1,12 @@
 #pragma once
 
+#include <aeroops_interfaces/srv/save_snapshot.hpp>
 #include <cv_bridge/cv_bridge.hpp>
 #include <mutex>
 #include <opencv2/core/mat.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <rclcpp_lifecycle/lifecycle_node.hpp>
 #include <sensor_msgs/msg/image.hpp>
-#include <std_srvs/srv/trigger.hpp>
 
 namespace aeroops::perception
 {
@@ -16,7 +16,7 @@ using CallbackReturn =
 
 using Image = sensor_msgs::msg::Image;
 
-using Trigger = std_srvs::srv::Trigger;
+using SaveSnapshot = aeroops_interfaces::srv::SaveSnapshot;
 
 class CameraMonitorNode final : public rclcpp_lifecycle::LifecycleNode
 {
@@ -44,10 +44,11 @@ private:
 	bool image_received_{false};
 
 	// Save snapshot:
-	void save_snapshot_callback(const std::shared_ptr<Trigger::Request> request,
-								std::shared_ptr<Trigger::Response> response);
+	void
+	save_snapshot_callback(const std::shared_ptr<SaveSnapshot::Request> request,
+						   std::shared_ptr<SaveSnapshot::Response> response);
 
-	rclcpp::Service<Trigger>::SharedPtr save_snapshot_srv_;
+	rclcpp::Service<SaveSnapshot>::SharedPtr save_snapshot_srv_;
 
 	std::mutex frame_mutex_;
 	cv::Mat latest_frame_;

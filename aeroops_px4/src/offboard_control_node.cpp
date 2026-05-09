@@ -33,10 +33,8 @@ CallbackReturn OffboardControlNode::on_configure(const rclcpp_lifecycle::State&)
 		std::bind(&OffboardControlNode::vehicle_status_callback, this,
 				  std::placeholders::_1));
 
-	save_snapshot_client_ = create_client<Trigger>("/aeroops/perception/"
-												   "save_snapshot");
-
-	inspect_snapshot_requested_ = false;
+	save_snapshot_client_ = create_client<SaveSnapshot>("/aeroops/perception/"
+														"save_snapshot");
 
 	RCLCPP_INFO(get_logger(), "OffboardControlNode Configured");
 	return CallbackReturn::SUCCESS;
@@ -243,19 +241,10 @@ void OffboardControlNode::control_loop()
 
 				inspect_ticks_ = 0;
 				control_state_ = ControlState::Inspect;
-				RCLCPP_INFO(get_logger(), "State: INSPECT");
 
-				if (current_waypoint_index_ + 1 < waypoints_.size())
-				{
-					++current_waypoint_index_;
-				}
-				else
-				{
-					land();
-					control_state_ = ControlState::Land;
-					RCLCPP_INFO(get_logger(), "State: LAND");
-				}
+				RCLCPP_INFO(get_logger(), "State: INSPECT");
 			}
+
 			break;
 		}
 
@@ -277,7 +266,11 @@ void OffboardControlNode::control_loop()
 				}
 				else
 				{
-					auto request = std::make_shared<Trigger::Request>();
+					auto request = std::make_shared<SaveSnapshot::Request>();
+
+					request->waypoint_index =
+						static_cast<uint32_t>(current_waypoint_index_);
+
 					save_snapshot_client_->async_send_request(request);
 
 					RCLCPP_INFO(get_logger(), "Inspection snapshot requested");

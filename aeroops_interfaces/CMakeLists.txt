@@ -15,6 +15,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/ArmDisarm.srv"
   "srv/UploadMission.srv"
   "srv/StartMission.srv"
+  "srv/SaveSnapshot.srv"
   DEPENDENCIES std_msgs
 )
 

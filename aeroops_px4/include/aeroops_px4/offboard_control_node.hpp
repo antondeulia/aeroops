@@ -1,12 +1,12 @@
 #pragma once
 
+#include <aeroops_interfaces/srv/save_snapshot.hpp>
 #include <px4_msgs/msg/offboard_control_mode.hpp>
 #include <px4_msgs/msg/trajectory_setpoint.hpp>
 #include <px4_msgs/msg/vehicle_command.hpp>
 #include <px4_msgs/msg/vehicle_odometry.hpp>
 #include <px4_msgs/msg/vehicle_status.hpp>
 #include <rclcpp_lifecycle/lifecycle_node.hpp>
-#include <std_srvs/srv/trigger.hpp>
 
 namespace aeroops_px4
 {
@@ -20,7 +20,7 @@ using VehicleCommand = px4_msgs::msg::VehicleCommand;
 using VehicleOdometry = px4_msgs::msg::VehicleOdometry;
 using VehicleStatus = px4_msgs::msg::VehicleStatus;
 
-using Trigger = std_srvs::srv::Trigger;
+using SaveSnapshot = aeroops_interfaces::srv::SaveSnapshot;
 
 class OffboardControlNode final : public rclcpp_lifecycle::LifecycleNode
 {
@@ -119,8 +119,7 @@ private:
 	int inspect_ticks_{0};
 
 	// Save snapshot client
-	rclcpp::Client<Trigger>::SharedPtr save_snapshot_client_;
-	bool inspect_snapshot_requested_{false};
+	rclcpp::Client<SaveSnapshot>::SharedPtr save_snapshot_client_;
 };
 
 } // namespace aeroops_px4

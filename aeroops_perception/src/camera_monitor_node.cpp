@@ -22,7 +22,7 @@ CallbackReturn CameraMonitorNode::on_configure(const rclcpp_lifecycle::State&)
 											 this, std::placeholders::_1));
 
 	// Snapshot service
-	save_snapshot_srv_ = create_service<Trigger>(
+	save_snapshot_srv_ = create_service<SaveSnapshot>(
 		"/aeroops/perception/save_snapshot",
 		std::bind(&CameraMonitorNode::save_snapshot_callback, this,
 				  std::placeholders::_1, std::placeholders::_2));
@@ -85,11 +85,9 @@ void CameraMonitorNode::image_callback(const Image::SharedPtr msg)
 
 // Snapshot callback
 void CameraMonitorNode::save_snapshot_callback(
-	const std::shared_ptr<Trigger::Request> request,
-	std::shared_ptr<Trigger::Response> response)
+	const std::shared_ptr<SaveSnapshot::Request> request,
+	std::shared_ptr<SaveSnapshot::Response> response)
 {
-	(void)request;
-
 	cv::Mat frame;
 	{
 		std::lock_guard<std::mutex> lock(frame_mutex_);
@@ -97,7 +95,7 @@ void CameraMonitorNode::save_snapshot_callback(
 		if (latest_frame_.empty())
 		{
 			response->success = false;
-			response->message = "No camera frame available";
+			response->path = "No camera frame available";
 			return;
 		}
 
@@ -107,12 +105,13 @@ void CameraMonitorNode::save_snapshot_callback(
 	std::filesystem::create_directories(snapshot_dir_);
 
 	std::ostringstream path;
-	path << snapshot_dir_ << "/inspection_" << snapshot_index_++ << ".png";
+	path << snapshot_dir_ << "/inspection_wp_" << request->waypoint_index << "_"
+		 << snapshot_index_++ << ".png";
 
 	const bool ok = cv::imwrite(path.str(), frame);
 
 	response->success = ok;
-	response->message = ok ? path.str() : "Failed to save snapshot";
+	response->path = ok ? path.str() : "Failed to save snapshot";
 }
 
 } // namespace aeroops::perception

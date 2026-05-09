@@ -15,6 +15,7 @@ find_package(cv_bridge REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
+find_package(aeroops_interfaces REQUIRED)
 
 add_library(camera_monitor_component SHARED
   src/camera_monitor_node.cpp
@@ -37,6 +38,7 @@ ament_target_dependencies(camera_monitor_component
   cv_bridge
   std_msgs
   std_srvs
+  aeroops_interfaces
 )
 
 rclcpp_components_register_nodes(

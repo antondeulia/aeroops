@@ -1,0 +1,4 @@
+uint32 waypoint_index
+---
+bool success
+string path

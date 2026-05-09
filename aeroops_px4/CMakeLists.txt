@@ -11,6 +11,7 @@ find_package(rclcpp_lifecycle REQUIRED)
 find_package(rclcpp_components REQUIRED)
 find_package(px4_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
+find_package(aeroops_interfaces REQUIRED)
 
 add_library(offboard_control_component SHARED
   src/offboard_control_node.cpp
@@ -27,6 +28,7 @@ ament_target_dependencies(offboard_control_component
   rclcpp_components
   px4_msgs
   std_srvs
+  aeroops_interfaces
 )
 
 rclcpp_components_register_nodes(
