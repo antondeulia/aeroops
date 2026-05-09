@@ -6,6 +6,7 @@
 #include <px4_msgs/msg/vehicle_odometry.hpp>
 #include <px4_msgs/msg/vehicle_status.hpp>
 #include <rclcpp_lifecycle/lifecycle_node.hpp>
+#include <std_srvs/srv/trigger.hpp>
 
 namespace aeroops_px4
 {
@@ -18,6 +19,8 @@ using TrajectorySetpoint = px4_msgs::msg::TrajectorySetpoint;
 using VehicleCommand = px4_msgs::msg::VehicleCommand;
 using VehicleOdometry = px4_msgs::msg::VehicleOdometry;
 using VehicleStatus = px4_msgs::msg::VehicleStatus;
+
+using Trigger = std_srvs::srv::Trigger;
 
 class OffboardControlNode final : public rclcpp_lifecycle::LifecycleNode
 {
@@ -114,6 +117,10 @@ private:
 
 	// Inspect
 	int inspect_ticks_{0};
+
+	// Save snapshot client
+	rclcpp::Client<Trigger>::SharedPtr save_snapshot_client_;
+	bool inspect_snapshot_requested_{false};
 };
 
 } // namespace aeroops_px4

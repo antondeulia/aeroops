@@ -33,6 +33,11 @@ CallbackReturn OffboardControlNode::on_configure(const rclcpp_lifecycle::State&)
 		std::bind(&OffboardControlNode::vehicle_status_callback, this,
 				  std::placeholders::_1));
 
+	save_snapshot_client_ = create_client<Trigger>("/aeroops/perception/"
+												   "save_snapshot");
+
+	inspect_snapshot_requested_ = false;
+
 	RCLCPP_INFO(get_logger(), "OffboardControlNode Configured");
 	return CallbackReturn::SUCCESS;
 }
@@ -265,6 +270,18 @@ void OffboardControlNode::control_loop()
 			{
 				RCLCPP_INFO(get_logger(), "Inspecting waypoint %zu",
 							current_waypoint_index_);
+
+				if (!save_snapshot_client_->service_is_ready())
+				{
+					RCLCPP_WARN(get_logger(), "Snapshot service is not ready");
+				}
+				else
+				{
+					auto request = std::make_shared<Trigger::Request>();
+					save_snapshot_client_->async_send_request(request);
+
+					RCLCPP_INFO(get_logger(), "Inspection snapshot requested");
+				}
 			}
 
 			++inspect_ticks_;
