@@ -27,6 +27,8 @@ def generate_launch_description():
                 parameters=[
                     {
                         "image_topic": "/camera/image",
+                        "show_opencv_window": True,
+                        "window_name": "AeroOps Camera",
                     }
                 ],
             ),

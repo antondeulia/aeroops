@@ -4,6 +4,7 @@
 #include <cv_bridge/cv_bridge.hpp>
 #include <mutex>
 #include <opencv2/core/mat.hpp>
+#include <opencv2/highgui.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <rclcpp_lifecycle/lifecycle_node.hpp>
 #include <sensor_msgs/msg/image.hpp>
@@ -42,6 +43,7 @@ private:
 
 	std::size_t frame_count_{0};
 	bool image_received_{false};
+	bool active_{false};
 
 	// Save snapshot:
 	void
@@ -55,6 +57,10 @@ private:
 
 	std::string snapshot_dir_{"/tmp/aeroops_snapshots"};
 	std::size_t snapshot_index_{0};
+
+	std::string image_topic_{"/camera/image"};
+	std::string window_name_{"AeroOps Camera"};
+	bool show_opencv_window_{true};
 };
 
 } // namespace aeroops::perception
