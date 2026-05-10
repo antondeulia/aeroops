@@ -1,7 +1,28 @@
 #include <aeroops_px4/offboard_control_node.hpp>
 
+#include <cmath>
+
 namespace aeroops_px4
 {
+namespace
+{
+constexpr double kPi = 3.14159265358979323846;
+
+double normalize_angle(double angle)
+{
+	while (angle > kPi)
+	{
+		angle -= 2.0 * kPi;
+	}
+
+	while (angle < -kPi)
+	{
+		angle += 2.0 * kPi;
+	}
+
+	return angle;
+}
+} // namespace
 
 OffboardControlNode::OffboardControlNode(const rclcpp::NodeOptions& options)
 	: rclcpp_lifecycle::LifecycleNode("offboard_control_node", options)
@@ -315,6 +336,19 @@ void OffboardControlNode::vehicle_odometry_callback(
 	current_y_ = msg->position[1];
 	current_z_ = msg->position[2];
 
+	const auto w = msg->q[0];
+	const auto x = msg->q[1];
+	const auto y = msg->q[2];
+	const auto z = msg->q[3];
+
+	if (std::isfinite(w) && std::isfinite(x) && std::isfinite(y) &&
+		std::isfinite(z))
+	{
+		current_yaw_ =
+			std::atan2(2.0 * (w * z + x * y),
+					   1.0 - 2.0 * (y * y + z * z));
+	}
+
 	odometry_received_ = true;
 }
 
@@ -323,7 +357,8 @@ bool OffboardControlNode::reached_waypoint(const Waypoint& waypoint) const
 {
 	return odometry_received_ && std::abs(current_x_ - waypoint.x) < 0.25 &&
 		   std::abs(current_y_ - waypoint.y) < 0.25 &&
-		   std::abs(current_z_ - waypoint.z) < 0.25;
+		   std::abs(current_z_ - waypoint.z) < 0.25 &&
+		   std::abs(normalize_angle(current_yaw_ - waypoint.yaw)) < 0.25;
 }
 
 // Vehicle status

@@ -7,6 +7,7 @@
 #include <px4_msgs/msg/vehicle_odometry.hpp>
 #include <px4_msgs/msg/vehicle_status.hpp>
 #include <rclcpp_lifecycle/lifecycle_node.hpp>
+#include <vector>
 
 namespace aeroops_px4
 {
@@ -84,7 +85,8 @@ private:
 	double current_x_{0.0};
 	double current_y_{0.0};
 	double current_z_{0.0};
-	double odometry_received_{false};
+	double current_yaw_{0.0};
+	bool odometry_received_{false};
 
 	int hold_ticks_{0};
 
@@ -97,10 +99,14 @@ private:
 		double yaw;
 	};
 
-	std::vector<Waypoint> waypoints_{{2.0, 0.0, -2.0, 0.0},
-									 {2.0, 2.0, -2.0, 0.0},
-									 {0.0, 2.0, -2.0, 0.0},
-									 {0.0, 0.0, -2.0, 0.0}};
+	std::vector<Waypoint> waypoints_{
+		{4.0, 0.0, -2.0, 0.0},
+		{4.0, -1.5, -2.0, -1.57079632679},
+		{2.0, -1.5, -2.0, -3.14159265359},
+		{2.0, -3.0, -2.0, -3.14159265359},
+		{0.0, -3.0, -2.0, -3.14159265359},
+		{0.0, 0.0, -2.0, 0.0},
+	};
 
 	std::size_t current_waypoint_index_{0};
 

@@ -39,10 +39,10 @@ def generate_launch_description():
         name="camera_image_bridge",
         output="screen",
         arguments=[
-            "/world/walls/model/x500_mono_cam_0/link/camera_link/sensor/camera/image@sensor_msgs/msg/Image@gz.msgs.Image",
+            "/world/forest/model/x500_mono_cam_0/link/camera_link/sensor/camera/image@sensor_msgs/msg/Image@gz.msgs.Image",
             "--ros-args",
             "-r",
-            "/world/walls/model/x500_mono_cam_0/link/camera_link/sensor/camera/image:=/camera/image",
+            "/world/forest/model/x500_mono_cam_0/link/camera_link/sensor/camera/image:=/camera/image",
         ],
     )
 
